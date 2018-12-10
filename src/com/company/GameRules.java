@@ -17,7 +17,7 @@ public class GameRules implements KeyListener, ActionListener {
     private Timer timer;
     private int delay = 4;
 
-    public GameRules(Spacecraft spacecraft, Ball ball, Wall wall, GameRender gameRender) throws Exception{
+    public GameRules(Spacecraft spacecraft, Ball ball, Wall wall, GameRender gameRender) {
         this.spacecraft = spacecraft;
         this.gameState = false;
         this.ball = ball;
@@ -31,7 +31,6 @@ public class GameRules implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // timer.start();
         if(this.getGameState()) {
             Rectangle ballrect = new Rectangle(ball.getBallX(), ball.getBallY(), 20, 20);
             Rectangle spacecraftRect = new Rectangle(spacecraft.getSpacecraftX(), 550, 100, 10);
