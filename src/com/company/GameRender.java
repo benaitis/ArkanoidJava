@@ -17,6 +17,11 @@ public class GameRender extends JPanel {
     private FileProvider fileProvider = new FileProvider();
     private GameState state;
 
+    private int gameScreenX = 0;
+    private int gameScreenY = 0;
+    private int gameScreenWidth = 600;
+    private int gameScreenHeight = 700;
+
     public GameRender(GameState gameState) throws Exception{
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -30,7 +35,7 @@ public class GameRender extends JPanel {
 
     public void paint(Graphics g){
         g.setColor(Color.BLACK);
-        g.fillRect(0,0,600,700);
+        g.fillRect(gameScreenX,gameScreenY,gameScreenWidth,gameScreenHeight);
 
         this.drawImages(g);
 

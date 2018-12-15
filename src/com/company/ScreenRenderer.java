@@ -13,7 +13,7 @@ public class ScreenRenderer extends JFrame implements KeyListener, ActionListene
     public static final int height = 700;
 
     private Timer timer;
-    private static final int delay = 4;
+    private static final int delay = 30;
 
 
     public GameRules gameRules;

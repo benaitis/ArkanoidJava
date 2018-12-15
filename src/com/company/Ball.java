@@ -29,6 +29,10 @@ public class Ball {
         this.ballDirectionY = -ballDirectionY;
     }
 
+    public void setBallDirectionX(int direction) {
+        this.ballDirectionX = direction;
+    }
+
     public int getBallX() {
         return ballX;
     }

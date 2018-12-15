@@ -11,11 +11,19 @@ public class GameState {
     private Spacecraft spacecraft;
     private Wall wall;
 
+    private int wallRowCount = 3;
+    private int wallColumnCount = 5;
+    private int spacecraftStartPosition = 300;
+    private int ballDirectionXStart = -1;
+    private int ballDirectionYStart = -2;
+    private int ballStartX = 120;
+    private int ballStartY = 350;
+
     public GameState(boolean isPlaying) throws Exception {
         this.isPlaying = isPlaying;
-        this.ball = new Ball(-1,-2,120,350);;
-        this.wall = new Wall(3,6);
-        this.spacecraft = new Spacecraft(300);
+        this.ball = new Ball(ballDirectionXStart,ballDirectionYStart,ballStartX,ballStartY);;
+        this.wall = new Wall(wallRowCount,wallColumnCount);
+        this.spacecraft = new Spacecraft(spacecraftStartPosition);
     }
 
     public boolean isPlaying() {

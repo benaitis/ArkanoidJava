@@ -33,7 +33,7 @@ public class GameRules {
                 gameState.getBall().setBallDirectionXToOpposite();
             }
             if(gameState.getBall().getBallY() > 670) {
-                gameState.setPlaying(false);
+                gameState.getBall().setBallDirectionYToOpposite();
             }
 
             for(int i = 0; i< gameState.getWall().getBricksRows().length; i++){
@@ -87,6 +87,11 @@ public class GameRules {
 
         if(ballRect.intersects(spacecraftRect)) {
             gameState.getBall().setBallDirectionYToOpposite();
+            if(ballRect.getX() > spacecraftRect.getCenterX()) {
+                gameState.getBall().setBallDirectionX(1);
+            } else {
+                gameState.getBall().setBallDirectionX(-1);
+            }
         }
     }
 
@@ -94,15 +99,14 @@ public class GameRules {
         int brickWidth = gameState.getWall().getBricksRows()[0][0].getBrickWidth();
         int brickHeight = gameState.getWall().getBricksRows()[0][0].getBrickHeight();
         Rectangle brick = new Rectangle(columnId* brickWidth+50, rowId* brickHeight+50, brickWidth, brickHeight);
+
         Rectangle ballRect = new Rectangle(gameState.getBall().getBallX(), gameState.getBall().getBallY(), 20,20);
+
         if(ballRect.intersects(brick)){
-            if(gameState.getWall().getBricksRows()[rowId][columnId].getState() instanceof GoldBrickState) {
-                gameState.getWall().getBricksRows()[rowId][columnId].setState(new RedBrickState());
-            } else {
-                gameState.getWall().getBricksRows()[rowId][columnId].setVisibility(false);
-            }
-            gameState.getBall().setBallDirectionXToOpposite();
             gameState.getBall().setBallDirectionYToOpposite();
+            Brick currentBrick = gameState.getWall().getBricksRows()[rowId][columnId];
+            currentBrick.getState().changeLifePoints(currentBrick);
+            gameState.getBall().setBallDirectionXToOpposite();
         }
     }
 
