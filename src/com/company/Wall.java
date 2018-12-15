@@ -1,37 +1,54 @@
 package com.company;
 
-import javax.imageio.ImageIO;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-
 public class Wall {
-    public int wall[][];
-    public int brickWidth;
-    public int brickHeight;
-    private BufferedImage WallImg;
+    private Brick[][] bricks;
 
-    public Wall(int row, int column) throws Exception{
-        WallImg = ImageIO.read(new FileInputStream("BlueWall.png"));
-        wall = new int[row][column];
-        for(int i=0; i<wall.length; i++){
-            for(int j=0;j<wall[0].length;j++){
-                wall[i][j] = 1;
-            }
-        }
-        brickWidth = 500/column;
-        brickHeight = 150/row;
+    //    public Brick(int row, int column) throws Exception{
+//        wall = new int[row][column];
+//
+
+//    }
+
+//    private String [][] Seats;
+//    public MovieSeating(int rowNum, int columnNum)
+//    {
+//        Seats = new String[rowNum][columnNum];
+//        for (int r = 0; r < rowNum; r++)
+//        {
+//            for (int c = 0; c < columnNum; c++)
+//            {
+//                Seats[r][c] = "???";
+//            }
+//        }
+//    }
+
+    public Wall(int row, int column) {
+        bricks = new Brick[row][column];
+        generateBricks(row, column);
+//        for(int i=0; i<row; i++){
+//            for(int j=0;j<column;j++){
+//                int brickWidth = 500/column;
+//                int brickHeight = 150/row;
+//                bricks[i][j] = new Brick(i, j, brickWidth, brickHeight, true);
+//            }
+//        }
     }
 
-    public void draw(Graphics g){
-        for(int i=0;i<wall.length;i++){
-            for(int j=0;j<wall[0].length;j++){
-                if(wall[i][j] != 0) {
-                    g.drawImage(WallImg,j*brickWidth+50,i*brickHeight+50,brickWidth,brickHeight, null);
-                }
+    public void generateBricks(int row, int column) {
+        for(int i=0; i<row; i++){
+            for(int j=0;j<column;j++){
+                int brickWidth = 500/column;
+                int brickHeight = 150/row;
+                this.bricks[i][j] = new Brick(i, j, brickWidth, brickHeight, true);
             }
         }
     }
 
+    public Brick[][] getBricksRows() {
+        return bricks;
+    }
+
+    public Brick[] getBricksColumns() {
+        return bricks[0];
+    }
 }

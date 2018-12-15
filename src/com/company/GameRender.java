@@ -1,56 +1,74 @@
 package com.company;
 
-import javax.imageio.ImageIO;
+import providers.FileProvider;
+import state.GameState;
+
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import javax.swing.Timer;
 
 public class GameRender extends JPanel {
-
-    private Timer timer;
-    private int delay = 2;
-
-    Ball ball = new Ball(-1,-2,120,350);
-    Spacecraft spacecraft = new Spacecraft(300);
-
-    private Wall wall;
     private BufferedImage spacecraftImg;
     private BufferedImage energyBallImg;
     private BufferedImage borderImg;
+    private BufferedImage brickImg;
+    private FileProvider fileProvider = new FileProvider();
+    private GameState state;
 
-    public GameRender() throws Exception{
-        spacecraftImg = ImageIO.read(new FileInputStream("VausSpacecraftLarge.png"));
-        energyBallImg = ImageIO.read(new FileInputStream("EnergyBall.png"));
-        borderImg = ImageIO.read(new FileInputStream("wall.png"));
-        wall = new Wall(3,6);
+    public GameRender(GameState gameState) throws Exception{
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        GameRules rules = new GameRules(spacecraft, ball, wall, this);
+        borderImg = fileProvider.getBorderImg();
+        spacecraftImg = fileProvider.getSpacecraftImg();
+        energyBallImg = fileProvider.getEnergyBallImg();
+        brickImg = fileProvider.getBrickImg();
+        this.state = gameState;
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics g){
         g.setColor(Color.BLACK);
         g.fillRect(0,0,600,700);
 
-        wall.draw(g);
-
-        g.drawImage(borderImg, 0, 0, 10, 700, null);
-        g.drawImage(borderImg, 0, 0, 590, 10, null);
-        g.drawImage(borderImg, 590, 0, 10, 700, null);
-        g.drawImage(borderImg, 0,690,590,10,null);
-        g.drawImage(spacecraftImg, spacecraft.getSpacecraftX(),550, 100, 10,null);
-
-        g.drawImage(energyBallImg, ball.getBallX(), ball.getBallY(),20,20, null);
+        this.drawImages(g);
 
         g.dispose();
     }
 
+    public void drawImages(Graphics g) {
+        state.getBall();
+        state.getWall();
+        state.getSpacecraft();
+        this.drawBricks(g);
+        this.drawBorders(g);
+        this.drawSpacecraft(g);
+        this.drawBall(g);
+        this.repaint();
+    }
 
+    public void drawBorders(Graphics g) {
+        g.drawImage(borderImg, 0, 0, 10, 700, null);
+        g.drawImage(borderImg, 0, 0, 590, 10, null);
+        g.drawImage(borderImg, 590, 0, 10, 700, null);
+        g.drawImage(borderImg, 0,690,590,10,null);
+    }
+
+    public void drawSpacecraft(Graphics g) {
+        g.drawImage(spacecraftImg, state.getSpacecraft().getSpacecraftX(),550, 100, 10,null);
+    }
+
+    public void drawBall(Graphics g) {
+        g.drawImage(energyBallImg, state.getBall().getBallX(), state.getBall().getBallY(),20,20, null);
+    }
+
+    public void drawBricks(Graphics g) {
+        for(int i = 0; i<state.getWall().getBricksRows().length; i++){
+            for(int j = 0; j<state.getWall().getBricksColumns().length; j++){
+                Brick[][] brick = state.getWall().getBricksRows();
+                if(brick[i][j].isVisible()) {
+                    g.drawImage(brickImg,j*brick[i][j].getBrickWidth()+50,i*brick[i][j].getBrickHeight()+50,brick[i][j].getBrickWidth(),brick[i][j].getBrickHeight(), null);
+                }
+            }
+        }
+    }
 
 }
