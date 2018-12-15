@@ -1,5 +1,7 @@
 package com.company;
 
+import brickstate.GoldBrickState;
+import brickstate.RedBrickState;
 import state.GameState;
 
 import java.awt.*;
@@ -94,8 +96,11 @@ public class GameRules {
         Rectangle brick = new Rectangle(columnId* brickWidth+50, rowId* brickHeight+50, brickWidth, brickHeight);
         Rectangle ballRect = new Rectangle(gameState.getBall().getBallX(), gameState.getBall().getBallY(), 20,20);
         if(ballRect.intersects(brick)){
-            gameState.getWall().getBricksRows()[rowId][columnId].setVisibility(false);
-            // gameState.getBrick().wall[rowId][columnId] = 0;
+            if(gameState.getWall().getBricksRows()[rowId][columnId].getState() instanceof GoldBrickState) {
+                gameState.getWall().getBricksRows()[rowId][columnId].setState(new RedBrickState());
+            } else {
+                gameState.getWall().getBricksRows()[rowId][columnId].setVisibility(false);
+            }
             gameState.getBall().setBallDirectionXToOpposite();
             gameState.getBall().setBallDirectionYToOpposite();
         }

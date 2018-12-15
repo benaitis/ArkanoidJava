@@ -8,14 +8,12 @@ import com.company.Wall;
 public class GameState {
     private boolean isPlaying;
     private Ball ball;
-    // private Brick brick;
     private Spacecraft spacecraft;
     private Wall wall;
 
     public GameState(boolean isPlaying) throws Exception {
         this.isPlaying = isPlaying;
         this.ball = new Ball(-1,-2,120,350);;
-        // this.brick = new Brick(3,6);
         this.wall = new Wall(3,6);
         this.spacecraft = new Spacecraft(300);
     }
@@ -35,15 +33,6 @@ public class GameState {
     public void setBall(Ball ball) {
         this.ball = ball;
     }
-
-//    public Brick getBrick() {
-//        return brick;
-//    }
-//
-//    public void setBrick(Brick brick) {
-//        this.brick = brick;
-//    }
-
 
     public Wall getWall() {
         return wall;

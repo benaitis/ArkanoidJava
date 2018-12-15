@@ -23,4 +23,8 @@ public class FileProvider {
     public BufferedImage getBrickImg() throws IOException {
         return ImageIO.read(new FileInputStream("BlueWall.png"));
     }
+
+    public BufferedImage getBrickGoldImg() throws IOException {
+        return ImageIO.read(new FileInputStream("GoldWall.png"));
+    }
 }
