@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 
 public class Brick {
-    //    public int wall[][];
     private int brickRowIdentifier;
     private int brickColumnIdentifier;
 

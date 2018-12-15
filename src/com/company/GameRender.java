@@ -1,5 +1,6 @@
 package com.company;
 
+import brickstate.RedBrickState;
 import providers.FileProvider;
 import state.GameState;
 
@@ -11,7 +12,8 @@ public class GameRender extends JPanel {
     private BufferedImage spacecraftImg;
     private BufferedImage energyBallImg;
     private BufferedImage borderImg;
-    private BufferedImage brickImg;
+    private BufferedImage redBrickImg;
+    private BufferedImage goldBrickImg;
     private FileProvider fileProvider = new FileProvider();
     private GameState state;
 
@@ -21,7 +23,8 @@ public class GameRender extends JPanel {
         borderImg = fileProvider.getBorderImg();
         spacecraftImg = fileProvider.getSpacecraftImg();
         energyBallImg = fileProvider.getEnergyBallImg();
-        brickImg = fileProvider.getBrickImg();
+        redBrickImg = fileProvider.getBrickImg();
+        goldBrickImg = fileProvider.getBrickGoldImg();
         this.state = gameState;
     }
 
@@ -65,6 +68,12 @@ public class GameRender extends JPanel {
             for(int j = 0; j<state.getWall().getBricksColumns().length; j++){
                 Brick[][] brick = state.getWall().getBricksRows();
                 if(brick[i][j].isVisible()) {
+                    BufferedImage brickImg;
+                    if (brick[i][j].getState() instanceof  RedBrickState) {
+                        brickImg = redBrickImg;
+                    } else {
+                        brickImg = goldBrickImg;
+                    }
                     g.drawImage(brickImg,j*brick[i][j].getBrickWidth()+50,i*brick[i][j].getBrickHeight()+50,brick[i][j].getBrickWidth(),brick[i][j].getBrickHeight(), null);
                 }
             }

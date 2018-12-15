@@ -6,6 +6,6 @@ public class RedBrickState extends BrickState {
 
     @Override
     public void changeLifePoints(Brick brick) {
-        brick.setState(new BlueBrickState());
+        brick.setState(new GoldBrickState());
     }
 }

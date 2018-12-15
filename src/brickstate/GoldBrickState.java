@@ -2,11 +2,10 @@ package brickstate;
 
 import com.company.Brick;
 
-public class BlueBrickState extends BrickState {
-
+public class GoldBrickState extends BrickState {
 
     @Override
     public void changeLifePoints(Brick brick) {
-//        brick.setState();
+        brick.setState(new RedBrickState());
     }
 }
